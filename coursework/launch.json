@@ -1,0 +1,41 @@
+
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {/*这个大括号里是我们的‘调试(Debug)’配置，这里我解释下为什么写了两个,
+        因为有时VSCode会有闪现的问题，也就是运行程序后窗口控制台可能会一闪而过，
+        看不到结果，因此可以通过搭建configution的办法来解决，也就是搭建一个cmd的配置。*/
+            "name": "(Windows) Launch",// 配置名称
+            "type": "cppvsdbg",// 配置类型，cppdbg对应cpptools提供的调试功能；可以认为此处只能是cppdbg
+            "request": "launch",// 请求配置类型，可以为launch（启动）或attach（附加）
+            "program": "cmd",// 将要进行调试的程序的路径
+            "preLaunchTask": "echo", // 调试开始前执行的任务，我们在调试前要编译构建。与tasks.json的label相对应，名字要一样
+            "args": [ // 程序调试时传递给程序的命令行参数
+                "/C",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "&",
+                "echo."
+            ],
+            "stopAtEntry": false, // 设为true时程序将暂停在程序入口处，相当于在main上打断点
+            "cwd": "${workspaceFolder}",// 调试程序时的工作目录，此处为源码文件所在目录
+            "environment": [],// 环境变量，这里设为空即可
+            "console": "externalTerminal"//使用单独的cmd窗口输出
+        },
+        {//这个大括号里是我们的‘调试(Debug)’配置
+            "name": "(gdb) Launch",// 配置名称
+            "type": "cppdbg",// 配置类型，cppdbg对应cpptools提供的调试功能；可以认为此处只能是cppdbg
+            "request": "launch",// 请求配置类型，可以为launch（启动）或attach（附加）
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}.exe",// 将要进行调试的程序的路径
+            "args": [], // 程序调试时传递给程序的命令行参数，
+            "stopAtEntry": false, // 设为true时程序将暂停在程序入口处，相当于在main上打断点
+            "cwd": "${workspaceFolder}",// 调试程序时的工作目录，此处为源码文件所在目录
+            "environment": [],// 环境变量，这里设为空即可
+            "console": "externalTerminal",// 使用单独的cmd窗口输出
+            "MIMode": "gdb", //指定连接的调试器，gdb是minGW中的调试程序
+            "miDebuggerPath": "C:\\Users\\LENOVO\\Downloads\\x86_64-8.1.0-release-win32-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe",//指定调试器所在路径，如果你的minGW装在别的地方，则要改成你自己的路径，注意间隔是\\
+            "preLaunchTask": "echo"//调试开始前执行的任务，这里和task.json的label相对应
+        }
+    ]
+}
+
